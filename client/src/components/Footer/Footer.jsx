@@ -1,133 +1,166 @@
 import React from "react";
-import { FaFacebook, FaInstagram } from "react-icons/fa";
-import { BsTwitterX } from "react-icons/bs";
+import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <>
-      <hr />
-      <div className="footer-main p-4" style={{ color: "rgb(52, 2, 13)" }}>
-        <footer className="site-footer">
-          <div className="container">
-            <div className="row">
-              <div className="col-sm-12 col-md-6">
-                <h2 style={{ color: "#ff4971" }}>About</h2>
-                <p className="text-justify">
-                  Discover a world of innovation at CityWide IT Solution. Your
-                  go-to destination for the latest smartphones, accessories, and
-                  expert recommendations. We offer a seamless online shopping
-                  experience with secure payment options and reliable delivery
-                  services.
-                  <br />
-                  <i>
-                    {" "}
-                    Order online and enjoy a seamless shopping experience with
-                    our secure payment options and reliable delivery services.
-                    CityWide IT Solution - Your destination for quality and
-                    innovation.
-                  </i>
-                </p>
-              </div>
-
-              <div className="col-md-6">
-                <div className="row">
-                  <div className="col-md-4">
-                    <h6>Categories</h6>
-                    <ul className="footer-links">
-                      <li>
-                        <a href="/">Home</a>
-                      </li>
-                      <li>
-                        <a href="/category1">Smartphones</a>
-                      </li>
-                      <li>
-                        <a href="/category2">Accessories</a>
-                      </li>
-                      <li>
-                        <a href="/category3">Deals</a>
-                      </li>
-                      <li>
-                        <a href="/category4">More</a>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="col-md-4">
-                    <h6>Quick Links</h6>
-                    <ul className="footer-links">
-                      <li>
-                        <a href="/about">About Us</a>
-                      </li>
-                      <li>
-                        <a href="/contact">Contact Us</a>
-                      </li>
-                      <li>
-                        <a href="/contribute">Contribute</a>
-                      </li>
-                      <li>
-                        <a href="/privacy">Privacy Policy</a>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="col-md-4">
-                    <h6>Follow Us</h6>
-                    <ul className="footer-social-icons">
-                      <li>
-                        <a
-                          href="https://www.facebook.com/er.rajeev.mca"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label="Facebook"
-                        >
-                          <FaFacebook />
-                          <span className="ms-1">Facebook</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="https://twitter.com/ErRajeev_Ranjan"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label="Twitter"
-                        >
-                          <BsTwitterX />
-                          <span className="ms-1">Twitter</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="https://www.instagram.com/er.rajeev.mca/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label="Instagram"
-                        >
-                          <FaInstagram />
-                          <span className="ms-1">Instagram</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <hr />
+    <footer className="bg-dark text-white pt-5 pb-4">
+      <div className="container text-center text-md-left">
+        <div className="row text-center text-md-left">
+          <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h5 className="text-uppercase mb-4 font-weight-bold text-warning">
+              Company Name
+            </h5>
+            <p>
+              Here you can use rows and columns to organize your footer content.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>
           </div>
-          <div className="container">
-            <div className="row">
-              <div className="col-md-8">
-                <p className="copyright-text">
-                  Copyright &copy; 2022 All Rights Reserved by{" "}
-                  <span>
-                    <strong>Rajeev Ranjan</strong>
-                  </span>
-                </p>
-              </div>
+
+          <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h5 className="text-uppercase mb-4 font-weight-bold text-warning">
+              Products
+            </h5>
+            <p>
+              <a
+                href="#"
+                className="text-white"
+                style={{ textDecoration: "none" }}
+              >
+                The North Face
+              </a>
+            </p>
+            <p>
+              <a
+                href="#"
+                className="text-white"
+                style={{ textDecoration: "none" }}
+              >
+                Adidas
+              </a>
+            </p>
+            <p>
+              <a
+                href="#"
+                className="text-white"
+                style={{ textDecoration: "none" }}
+              >
+                Nike
+              </a>
+            </p>
+            <p>
+              <a
+                href="#"
+                className="text-white"
+                style={{ textDecoration: "none" }}
+              >
+                Under Armour
+              </a>
+            </p>
+          </div>
+
+          <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h5 className="text-uppercase mb-4 font-weight-bold text-warning">
+              Useful links
+            </h5>
+            <p>
+              <a
+                href="#"
+                className="text-white"
+                style={{ textDecoration: "none" }}
+              >
+                Your Account
+              </a>
+            </p>
+            <p>
+              <a
+                href="#"
+                className="text-white"
+                style={{ textDecoration: "none" }}
+              >
+                Become an Affiliate
+              </a>
+            </p>
+            <p>
+              <a
+                href="#"
+                className="text-white"
+                style={{ textDecoration: "none" }}
+              >
+                Shipping Rates
+              </a>
+            </p>
+            <p>
+              <a
+                href="#"
+                className="text-white"
+                style={{ textDecoration: "none" }}
+              >
+                Help
+              </a>
+            </p>
+          </div>
+
+          <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h5 className="text-uppercase mb-4 font-weight-bold text-warning">
+              Contact
+            </h5>
+            <p>
+              <i className="fas fa-home mr-3"></i> New York, NY 10012, US
+            </p>
+            <p>
+              <i className="fas fa-envelope mr-3"></i> info@example.com
+            </p>
+            <p>
+              <i className="fas fa-phone mr-3"></i> + 01 234 567 88
+            </p>
+            <p>
+              <i className="fas fa-print mr-3"></i> + 01 234 567 89
+            </p>
+          </div>
+        </div>
+
+        <hr className="mb-4" />
+        <div className="row align-items-center">
+          <div className="col-md-7 col-lg-8">
+            <p className="text-left text-md-left">© 2024 Company Name</p>
+          </div>
+
+          <div className="col-md-5 col-lg-4">
+            <div className="text-center text-md-right">
+              <ul className="list-unstyled list-inline">
+                <li className="list-inline-item">
+                  <a
+                    href="#"
+                    className="btn-floating btn-sm text-white"
+                    style={{ fontSize: "23px" }}
+                  >
+                    <FaFacebookF />
+                  </a>
+                </li>
+                <li className="list-inline-item">
+                  <a
+                    href="#"
+                    className="btn-floating btn-sm text-white"
+                    style={{ fontSize: "23px" }}
+                  >
+                    <FaTwitter />
+                  </a>
+                </li>
+                <li className="list-inline-item">
+                  <a
+                    href="#"
+                    className="btn-floating btn-sm text-white"
+                    style={{ fontSize: "23px" }}
+                  >
+                    <FaInstagram />
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
-        </footer>
+        </div>
       </div>
-    </>
+    </footer>
   );
 };
 

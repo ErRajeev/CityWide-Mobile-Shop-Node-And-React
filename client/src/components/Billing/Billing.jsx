@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
-import axios from "axios";
 import { authContext } from "../Authentication/context/AuthenticationProvider";
 import Address from "../Address/Address";
+import axiosInstance from "../../Utils/axiosInstance";
 
 const Billing = () => {
   const [user, setUser] = useState({});
@@ -13,9 +13,7 @@ const Billing = () => {
 
   const getUserHandle = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/profile/${userId}`
-      );
+      const response = await axiosInstance.get(`/profile/${userId}`);
       setUser(response.data);
     } catch (error) {
       console.log(error);
@@ -24,9 +22,7 @@ const Billing = () => {
 
   const fetchCartDetails = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/getCardDetails/${userId}`
-      );
+      const response = await axiosInstance.get(`/getCardDetails/${userId}`);
       // console.log(response.data);
       setProductDetails(response.data);
       // setAllProductCost(response.data.allProductCost);
@@ -39,10 +35,10 @@ const Billing = () => {
     try {
       const {
         data: { key },
-      } = await axios.get("http://localhost:5000/getkey");
+      } = await axiosInstance.get("/getkey");
       const {
         data: { order },
-      } = await axios.post("http://localhost:5000/checkout", {
+      } = await axiosInstance.post("/checkout", {
         userId,
         amount,
         productDetails,

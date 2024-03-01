@@ -1,5 +1,5 @@
 import React from "react";
-import CategoryCard from "./CategoryCard/CategoryCard";
+import { NavLink } from "react-router-dom";
 
 import camera from "../../assets/Images/camera.jpg";
 import accessoriesung from "../../assets/Images/accessories.jpg";
@@ -50,7 +50,29 @@ const Category = () => {
           <h6 className="text-muted">Top Product Categories</h6>
         </div>
         <div className="row row-cols-1 row-cols-md-3 g-4 mt-4">
-          <CategoryCard data={data} />
+          {data?.map((item) => (
+            <div
+              className="col mb-4"
+              key={item?.id}
+              style={{ cursor: "pointer" }}
+            >
+              <NavLink
+                to={`/category/${item?.id}`}
+                className="text-decoration-none"
+              >
+                <div className="card bg-dark text-dark">
+                  <img
+                    src={item?.image}
+                    className="card-img"
+                    alt={item?.title}
+                  />
+                  <div className="card-img-overlay d-flex align-items-end">
+                    <h5 className="card-title">{item?.title}</h5>
+                  </div>
+                </div>
+              </NavLink>
+            </div>
+          ))}
         </div>
       </div>
     </>

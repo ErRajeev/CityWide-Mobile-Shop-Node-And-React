@@ -4,7 +4,7 @@ import { authContext } from "../Authentication/context/AuthenticationProvider";
 import { FaUser, FaShoppingCart } from "react-icons/fa";
 import { CgLogOut } from "react-icons/cg";
 import { MdLogin, MdCheckBox } from "react-icons/md";
-import axios from "axios";
+import axiosInstance from "../../Utils/axiosInstance";
 
 const Navbar = () => {
   const [cartItems, setCartItems] = useState(0);
@@ -15,9 +15,7 @@ const Navbar = () => {
   const fetchCartNumber = async () => {
     if (userId) {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/getCartNumber/${userId}`
-        );
+        const response = await axiosInstance.get(`/getCartNumber/${userId}`);
         setCartItems(response.data.item);
       } catch (error) {
         console.error("Error fetching cart number:", error);

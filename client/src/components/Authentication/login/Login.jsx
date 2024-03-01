@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
-import axios from "axios";
-import { useNavigate, Link, NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { authContext } from "../context/AuthenticationProvider";
+import axiosInstance from "../../../Utils/axiosInstance";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +15,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/login", {
+      const response = await axiosInstance.post("/login", {
         email: email.toLowerCase(),
         password: password,
       });

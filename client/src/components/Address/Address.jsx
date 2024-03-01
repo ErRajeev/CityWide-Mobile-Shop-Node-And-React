@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { authContext } from "../Authentication/context/AuthenticationProvider";
-import axios from "axios";
+import axiosInstance from "../../Utils/axiosInstance";
 
 const Address = () => {
   const [data, setData] = useState({});
@@ -8,9 +8,7 @@ const Address = () => {
 
   const getUserData = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/profile/${authState.id}`
-      );
+      const response = await axiosInstance.get(`/profile/${authState.id}`);
       setData(response.data);
     } catch (error) {
       console.error("Error fetching user data:", error);

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { authContext } from "../Authentication/context/AuthenticationProvider";
-import axios from "axios";
+import axiosInstance from "../../Utils/axiosInstance";
 
 const ContactUs = () => {
   const [name, setName] = useState("");
@@ -21,9 +21,7 @@ const ContactUs = () => {
 
   const getUserdata = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/getcontactus/${userId}`
-      );
+      const response = await axiosInstance.get(`/getcontactus/${userId}`);
       // console.log(response.data);
       setName(response.data.name);
       setEmail(response.data.email);
@@ -38,7 +36,7 @@ const ContactUs = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:5000/contactus`, {
+      const response = await axiosInstance.post(`/contactus`, {
         userId,
         name,
         email,
@@ -63,6 +61,16 @@ const ContactUs = () => {
     getUserdata();
   }, [userId]);
 
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container mt-2">
       <div className="row justify-content-center">
@@ -76,14 +84,10 @@ const ContactUs = () => {
                 success
               </div>
             )}
-            {loading ? (
-              <div className="d-flex justify-content-center">
-                <div className="spinner-border text-primary" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
+            {error ? (
+              <div className="alert alert-danger text-center" role="alert">
+                {error}
               </div>
-            ) : error ? (
-              <div className="alert alert-danger text-center">{error}</div>
             ) : (
               <div>
                 <h2 className="text-center mb-4 text-primary">Contact Us</h2>

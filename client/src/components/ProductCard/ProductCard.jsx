@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const FeaturesCard = (props) => {
+const ProductCard = (props) => {
   const { data } = props;
   const navigate = useNavigate();
   // console.log(data);
@@ -55,4 +55,4 @@ const FeaturesCard = (props) => {
   );
 };
 
-export default FeaturesCard;
+export default ProductCard;

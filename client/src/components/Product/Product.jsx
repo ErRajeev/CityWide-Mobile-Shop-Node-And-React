@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { authContext } from "../Authentication/context/AuthenticationProvider";
 import ProductBrand from "../ProductBrand/ProductBrand";
+import axiosInstance from "../../Utils/axiosInstance";
 
 const Product = () => {
   const { id } = useParams();
@@ -18,7 +18,7 @@ const Product = () => {
 
   const loadProductData = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/product/${id}`);
+      const response = await axiosInstance.get(`/product/${id}`);
       setProductData(response.data);
     } catch (error) {
       setError("Error fetching product data. Please try again.");
@@ -30,7 +30,7 @@ const Product = () => {
   const addToCart = async () => {
     if (authState.auth) {
       try {
-        const response = await axios.patch(`http://localhost:5000/addtocart`, {
+        const response = await axiosInstance.patch(`/addtocart`, {
           userId,
           productId,
         });
@@ -51,6 +51,16 @@ const Product = () => {
     loadProductData();
   }, [productId]);
 
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="container-fluid mt-3">
@@ -59,68 +69,60 @@ const Product = () => {
             {success}
           </div>
         )}
-
-        {loading ? (
-          <div className="d-flex justify-content-center">
-            <div className="spinner-border text-primary" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        ) : error ? (
+        {error && (
           <div className="alert alert-danger text-center" role="alert">
             {error}
           </div>
-        ) : (
-          <div className="card mb-3">
-            <div className="row g-0">
-              <div className="col-md-4">
-                <div className="container d-flex justify-content-center">
-                  <img
-                    src={`data:${
-                      productData?.image?.contentType
-                    };base64,${productData?.image?.data?.toString("base64")}`}
-                    alt={`Product: ${productData?.title}`}
-                    className="img-fluid rounded-start mt-5"
-                    style={{
-                      maxWidth: "55%",
-                    }}
-                  />
-                </div>
+        )}
+        <div className="card mb-3">
+          <div className="row g-0">
+            <div className="col-md-4">
+              <div className="container d-flex justify-content-center">
+                <img
+                  src={`data:${
+                    productData?.image?.contentType
+                  };base64,${productData?.image?.data?.toString("base64")}`}
+                  alt={`Product: ${productData?.title}`}
+                  className="img-fluid rounded-start mt-5"
+                  style={{
+                    maxWidth: "55%",
+                  }}
+                />
               </div>
-              <div className="col-md-8">
-                <div className="card-body">
-                  <h3 className="card-title">{productData?.model}</h3>
-                  <h5 className="card-title" style={{ color: "#3b8f3f" }}>
-                    ₹ {productData?.price} /-
-                  </h5>
-                  <p className="card-text">
-                    <small className="text-muted">Hot deal</small>
-                  </p>
-                  <ul>
-                    <li className="card-text">Ram {productData?.ram} Gb</li>
-                    <li className="card-text">
-                      Processor {productData?.processor}
-                    </li>
-                    <li className="card-text">Screen {productData?.screen}</li>
-                    <li className="card-text">Camera {productData?.camera}</li>
-                    <li className="card-text">
-                      Storage {productData?.storage}GB
-                    </li>
-                    <li>Color {productData?.color}</li>
-                  </ul>
-                  <p className="card-text">
-                    Description <br />
-                    {productData?.about}
-                  </p>
+            </div>
+            <div className="col-md-8">
+              <div className="card-body">
+                <h3 className="card-title">{productData?.model}</h3>
+                <h5 className="card-title" style={{ color: "#3b8f3f" }}>
+                  ₹ {productData?.price} /-
+                </h5>
+                <p className="card-text">
+                  <small className="text-muted">Hot deal</small>
+                </p>
+                <ul>
+                  <li className="card-text">Ram {productData?.ram} Gb</li>
+                  <li className="card-text">
+                    Processor {productData?.processor}
+                  </li>
+                  <li className="card-text">Screen {productData?.screen}</li>
+                  <li className="card-text">Camera {productData?.camera}</li>
+                  <li className="card-text">
+                    Storage {productData?.storage}GB
+                  </li>
+                  <li>Color {productData?.color}</li>
+                </ul>
+                <p className="card-text">
+                  Description <br />
+                  {productData?.about}
+                </p>
 
-                  <button className="btn btn-success" onClick={addToCart}>
-                    Add To Cart
-                  </button>
-                </div>
+                <button className="btn btn-success" onClick={addToCart}>
+                  Add To Cart
+                </button>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
       {loading || error ? null : (
         <div className="container">

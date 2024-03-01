@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../../Utils/axiosInstance";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ const Signup = () => {
         return;
       }
 
-      const response = await axios.post("http://localhost:5000/reg", {
+      const response = await axiosInstance.post("/reg", {
         name: name,
         email: email.toLowerCase(),
         password: password,
@@ -73,7 +73,7 @@ const Signup = () => {
 
   const handleVerifyOTP = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/otp-verify", {
+      const response = await axiosInstance.post("/otp-verify", {
         email: email,
         token: otp,
       });

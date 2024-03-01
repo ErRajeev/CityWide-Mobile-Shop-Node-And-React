@@ -37,9 +37,6 @@ connect(DbUrl)
     console.log(error);
   });
 
-app.use("/getkey", (req, res) => {
-  res.status(200).json({ key: process.env.KEY_ID });
-});
 app.use(adminRouter);
 app.use(userRouter);
 app.use(productRoute);

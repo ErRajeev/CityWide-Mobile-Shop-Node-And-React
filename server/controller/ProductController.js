@@ -16,7 +16,11 @@ export const getAllProducts = async (req, res) => {
 
 export const getProduct = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const _id = req.params.id;
+    if (!_id) {
+      return res.status(400).json({ message: "Please send Product Id" });
+    }
+    const product = await Product.findById(_id);
     if (!product) {
       return res.status(404).json({ error: "Data not found" });
     }

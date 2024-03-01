@@ -2,14 +2,27 @@ import { instance } from "../index.js";
 import crypto from "crypto";
 import Purchase from "../model/userPurchaseModel.js";
 import Cart from "../model/userCartModel.js";
+import { config } from "dotenv";
+config();
 
 let user_Id;
 let product_Details;
 
+export const getKey = async (req, res) => {
+  try {
+    return res.status(200).json({ key: process.env.KEY_ID });
+  } catch (error) {
+    console.error("Error during checkout:", error);
+    res.status(500).json({
+      error: "Internal Server Error",
+    });
+  }
+};
+
 export const checkout = async (req, res) => {
   try {
-    const { userId, amount, productDetails } = req.body;
     // console.log(req.body);
+    const { userId, amount, productDetails } = req.body;
     product_Details = productDetails;
     user_Id = userId;
     const options = {

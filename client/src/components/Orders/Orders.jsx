@@ -82,36 +82,51 @@ const Orders = () => {
 
   return (
     <>
-      <div className="container mt-5">
-        <div className="row">
+      <div className="container py-5">
+        <div className="row justify-content-center">
           <div className="col-md-8">
-            <h2 className="mb-4">Products</h2>
-            <div className="row">
-              {products.map((product, index) => (
-                <div key={index} className="col-md-6 col-lg-4 mb-4">
-                  <div className="card h-100 shadow-sm">
-                    <img
-                      src={`data:${
-                        product?.image?.contentType
-                      };base64,${product?.image?.data?.toString("base64")}`}
-                      alt={`Product: ${product?.title}`}
-                      className="card-img-top"
-                    />
-                    <div className="card-body d-flex flex-column">
-                      <h5 className="card-title">{product?.model}</h5>
-                      <p className="card-text">Price: {product?.price}</p>
-                      <NavLink
-                        to={`/Product/${product?._id}`}
-                        className="btn btn-primary mt-auto"
-                      >
-                        View Product
-                      </NavLink>
-                    </div>
+            <div className="mb-4">
+              <h2>Products</h2>
+            </div>
+            {products.map((product, index) => (
+              <div key={index} className="card mb-3">
+                <div className="card-body">
+                  <img
+                    src={`data:${
+                      product?.image?.contentType
+                    };base64,${product?.image?.data?.toString("base64")}`}
+                    alt={`Product: ${product?.title}`}
+                    className="img-thumbnail float-start me-3"
+                    style={{ maxWidth: "200px", height: "auto" }}
+                  />
+                  <div className="card-body d-flex flex-column">
+                    <h3 className="card-title text-primary">
+                      {product?.model}
+                    </h3>
+                    <p className="card-text">
+                      <strong className="text-primary">Ram: </strong>{" "}
+                      {product?.ram}
+                    </p>
+                    <p className="card-text">
+                      <strong className="text-primary">Storage: </strong>{" "}
+                      {product?.storage}
+                    </p>
+                    <p className="card-text">
+                      <strong className="text-primary">Price: </strong>{" "}
+                      {product?.price}
+                    </p>
+                    <NavLink
+                      to={`/Product/${product?._id}`}
+                      className="btn btn-primary mt-auto"
+                    >
+                      View Product
+                    </NavLink>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
+
           <div className="col-md-4">
             <h2 className="mb-4">Order Summary</h2>
             <div className="card shadow">

@@ -14,6 +14,7 @@ import PaymentSuccess from "./components/Billing/PaymentSuccess";
 import Cart from "./components/Cart/Cart";
 import AllProducts from "./components/AllProducts/AllProducts";
 import Orders from "./components/Orders/Orders";
+import CreateReview from "./components/CreateReview/CreateReview";
 
 const App = () => {
   return (
@@ -29,6 +30,10 @@ const App = () => {
               <Route path="/paymentsuccess" element={<PaymentSuccess />} />
               <Route path="/addtocart" element={<Cart />} />
               <Route path="orders" element={<Orders />} />
+              <Route
+                path="//product/review/create-review/:id"
+                element={<CreateReview />}
+              />
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/product/:id" element={<Product />} />

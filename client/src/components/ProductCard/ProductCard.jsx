@@ -14,20 +14,21 @@ const ProductCard = (props) => {
     <>
       {data?.map((item) => (
         <div className="col" key={item?._id}>
-          <div className="card">
-            <div className="d-flex justify-content-center">
+          <div className="card h-100">
+            <div
+              className="d-flex justify-content-center align-items-center"
+              style={{ minHeight: "200px" }}
+            >
               <img
-                style={{
-                  maxWidth: "50%",
-                }}
                 src={`data:${
                   item?.img?.contentType
                 };base64,${item?.image?.data?.toString("base64")}`}
-                className="card-img-top mt-1 "
+                className="card-img-top img-fluid"
                 alt="..."
                 onError={(e) => {
                   e.target.src = "your_placeholder_image_url";
                 }}
+                style={{ maxHeight: "200px", width: "auto" }}
               />
             </div>
             <div className="card-body">

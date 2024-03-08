@@ -18,6 +18,9 @@ export const selectProductById = (state, productId) => {
 };
 
 export const selectProductByBrand = (state, brand) => {
+  if (!state.products.data) {
+    return [];
+  }
   return state.products.data.filter((product) => product.brand === brand);
 };
 

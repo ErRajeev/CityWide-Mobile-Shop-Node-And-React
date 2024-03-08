@@ -3,20 +3,44 @@ import { useSelector, useDispatch } from "react-redux";
 import ProductCard from "../ProductCard/ProductCard";
 import { fetchProducts } from "../Slices/productsSlice";
 import { ImSearch } from "react-icons/im";
+import Footer from "../Footer/Footer";
 
 const AllProducts = () => {
   const [filter, setFilter] = useState("");
+  const [priceFilter, setPriceFilter] = useState("");
+  const [priceSortFilter, setPriceSortFilter] = useState("");
+
   const dispatch = useDispatch();
 
   const { data, loading, error } = useSelector((store) => store.products);
 
   const handleFilterChange = (e) => setFilter(e.target.value);
 
-  const filterdProduct = data?.filter(
-    (product) =>
+  // Filter Methods
+  let filteredProducts = data?.filter((product) => {
+    const matchFilter =
       product?.brand.toLowerCase().includes(filter.toLowerCase()) ||
-      product?.model.toLowerCase().includes(filter.toLowerCase())
-  );
+      product?.model.toLowerCase().includes(filter.toLowerCase());
+
+    const [minPrice, maxPrice] = priceFilter.split("-").map(Number);
+
+    if (priceFilter.startsWith("<")) {
+      return matchFilter && product.price < 10000;
+    } else if (priceFilter.startsWith(">")) {
+      return matchFilter && product.price > 50000;
+    } else if (minPrice && maxPrice) {
+      return (
+        matchFilter && product.price >= minPrice && product.price <= maxPrice
+      );
+    } else {
+      return matchFilter;
+    }
+  });
+  if (priceSortFilter === "ascending") {
+    filteredProducts = filteredProducts?.sort((a, b) => a.price - b.price);
+  } else if (priceSortFilter === "descending") {
+    filteredProducts = filteredProducts?.sort((a, b) => b.price - a.price);
+  }
 
   useEffect(() => {
     if (!data) {
@@ -44,30 +68,68 @@ const AllProducts = () => {
 
   return (
     <>
-      <div className="container text-center">
-        <h1 style={{ color: "green" }}>Our Exclusive Products</h1>
-      </div>
-      <div className="container">
-        <div className="input-group mb-4">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search by Brand name or Model..."
-            value={filter}
-            onChange={handleFilterChange}
-          />
-          <button className="btn btn-primary p-0 m-0">
-            <span className="input-group-text" id="basic-addon2">
-              <i className="bi bi-search">
-                <ImSearch />
-              </i>
+      <div className="container my-4">
+        <div className="text-center mb-4">
+          <h1 className="text-success">Our Exclusive Products</h1>
+        </div>
+        <div className="d-flex flex-column flex-md-row align-items-center mb-4">
+          <div className="input-group">
+            <span className="input-group-text">
+              <ImSearch />
             </span>
-          </button>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search by Brand name or Model..."
+              value={filter}
+              onChange={handleFilterChange}
+            />
+          </div>
+          <div className="ms-md-3 mt-3 mt-md-0 d-flex">
+            <label htmlFor="price" className="form-label m-2">
+              <strong>Price:</strong>
+            </label>
+            <select
+              name="price"
+              id="price"
+              className="form-select"
+              onChange={(e) => setPriceFilter(e.target.value)}
+            >
+              <option value="">All Prices</option>
+              <option value="<10000">Under ₹10,000</option>
+              <option value="10000-25000">₹10,000 - ₹25,000</option>
+              <option value="25000-50000">₹25,000 - ₹50,000</option>
+              <option value="50000-75000">₹50,000 - ₹75,000</option>
+              <option value=">75000">Over ₹75,000</option>
+            </select>
+            <label htmlFor="sort" className="form-label m-2">
+              <strong>Sort: </strong>
+            </label>
+            <select
+              name="sort"
+              id="sort"
+              className="form-select"
+              onChange={(e) => setPriceSortFilter(e.target.value)}
+            >
+              <option value="none">None</option>
+              <option value="asscending">Low to High</option>
+              <option value="descending">High to Low</option>
+            </select>
+          </div>
         </div>
-        <div className="row row-cols-1 row-cols-md-3 g-4 justify-content-center m-1">
-          <ProductCard data={filterdProduct} />
+        <div className="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+          {filteredProducts?.length > 0 ? (
+            <ProductCard data={filteredProducts} />
+          ) : (
+            <div className="text-center">
+              <p className="fs-4">
+                <strong>No product found 😥</strong>
+              </p>
+            </div>
+          )}
         </div>
       </div>
+      <Footer />
     </>
   );
 };

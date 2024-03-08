@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { authContext } from "../Authentication/context/AuthenticationProvider";
 import ProductBrand from "../ProductBrand/ProductBrand";
 import axiosInstance from "../../Utils/axiosInstance";
+import Review from "../Review/Review";
 
 const Product = () => {
   const { id } = useParams();
@@ -121,6 +122,7 @@ const Product = () => {
                 </button>
               </div>
             </div>
+            <Review data={id} />
           </div>
         </div>
       </div>

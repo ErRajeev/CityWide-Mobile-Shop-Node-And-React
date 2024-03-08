@@ -66,6 +66,23 @@ export const isAdmin = async (req, res, next) => {
 //   }
 // };
 
+export const getProduct = async (req, res) => {
+  try {
+    const _id = req.params.id;
+    if (!_id) {
+      return res.status(400).json({ message: "Please send Product Id" });
+    }
+    const product = await Products.findById(_id);
+    if (!product) {
+      return res.status(404).json({ error: "Data not found" });
+    }
+    res.status(200).json(product);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 export const AddProduct = async (req, res) => {
   try {
     const productData = { ...req.body };
@@ -105,7 +122,7 @@ export const UpdateProduct = async (req, res) => {
       updateData.image = imageData;
     }
     await Products.findByIdAndUpdate(id, { $set: updateData }, { new: true });
-    res.status(200).json({ message: "Product updated successfully" });
+    res.status(204).json({ message: "Product updated successfully" });
   } catch (error) {
     console.error("Error updating product:", error);
     res.status(500).json({ message: "Internal server error" });

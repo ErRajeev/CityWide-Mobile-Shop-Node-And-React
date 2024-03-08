@@ -3,6 +3,7 @@ const router = Router();
 import multer, { memoryStorage } from "multer";
 import {
   isAdmin,
+  getProduct,
   AddProduct,
   UpdateProduct,
   deleteProduct,
@@ -14,6 +15,7 @@ import {
 const storage = memoryStorage();
 const upload = multer({ storage: storage });
 
+router.route("/admin/getProduct/:id").get(getProduct);
 router
   .route("/admin/upload")
   .patch(isAdmin, upload.single("image"), AddProduct);

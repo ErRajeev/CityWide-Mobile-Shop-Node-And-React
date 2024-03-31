@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import axiosInstance from "../../Utils/axiosInstance ";
 
 const UpdateProduct = () => {
   const { id } = useParams();
+
+  const navigate = useNavigate();
+
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
   const [brand, setBrand] = useState("");
@@ -37,7 +40,9 @@ const UpdateProduct = () => {
 
   const fetchProduct = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/product/${id}`);
+      const response = await axios.get(
+        `http://localhost:5000/admin/getProduct/${id}`
+      );
       const product = await response.data;
       setTitle(product?.title);
       setBrand(product?.brand);
@@ -59,10 +64,11 @@ const UpdateProduct = () => {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    if (!image) {
-      console.error("Please select an image to upload");
-      return;
-    }
+    // if (!image) {
+    //   console.error("Please select an image to upload");
+    //   return;
+    // }
+
     try {
       const formData = new FormData();
       formData.append("image", image);
@@ -88,8 +94,12 @@ const UpdateProduct = () => {
           },
         }
       );
-      if (response.status === 200) {
+      if (response.status === 204) {
         setSuccess("Data uploaded successfully");
+        setTimeout(() => {
+          setSuccess("");
+          navigate("/admin/allproducts");
+        }, 3000);
       } else {
         setError("Somthing went's wrong");
       }
@@ -100,7 +110,6 @@ const UpdateProduct = () => {
   };
 
   setTimeout(() => {
-    setSuccess("");
     setError("");
   }, 3000);
 

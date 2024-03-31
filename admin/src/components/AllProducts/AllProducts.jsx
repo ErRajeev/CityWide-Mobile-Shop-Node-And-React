@@ -7,6 +7,9 @@ import axiosInstance from "../../Utils/axiosInstance ";
 
 const AllProducts = () => {
   const [filter, setFilter] = useState("");
+  const [priceFilter, setPriceFilter] = useState("");
+  const [priceSortFilter, setPriceSortFilter] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleFilterChange = (e) => setFilter(e.target.value);
@@ -32,11 +35,34 @@ const AllProducts = () => {
     }
   };
 
-  const filterdProducts = data?.filter(
-    (product) =>
-      product.brand.toLowerCase().includes(filter.toLowerCase()) ||
-      product.model.toLowerCase().includes(filter.toLowerCase())
-  );
+  let filterdProduct = data?.filter((product) => {
+    let matchFilter =
+      product?.brand.toLowerCase().includes(filter.toLowerCase()) ||
+      product?.model.toLowerCase().includes(filter.toLowerCase());
+
+    if (!priceFilter || priceFilter === "") {
+      return matchFilter;
+    }
+
+    const [minPrice, maxPrice] = priceFilter.split("-").map(Number);
+
+    if (priceFilter.startsWith("<")) {
+      return matchFilter && product.price < 10000;
+    } else if (priceFilter.startsWith(">")) {
+      return matchFilter && product.price > 50000;
+    } else {
+      return (
+        matchFilter && product.price >= minPrice && product.price <= maxPrice
+      );
+    }
+  });
+
+  if (priceSortFilter === "ascending") {
+    filterdProduct?.sort((a, b) => a.price - b.price);
+  } else if (priceSortFilter === "descending") {
+    filterdProduct?.sort((a, b) => b.price - a.price);
+  }
+
   useEffect(() => {
     if (!data) {
       dispatch(fetchProducts());
@@ -63,85 +89,113 @@ const AllProducts = () => {
 
   return (
     <>
-      <div className="container mt-2">
-        <h2 className="text-primary">Products</h2>
-        <div className="input-group mb-3">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search by Brand name or Model..."
-            value={filter}
-            onChange={handleFilterChange}
-          />
-          <button className="btn btn-primary p-0 m-0">
-            <span className="input-group-text" id="basic-addon2">
-              <i className="bi bi-search">
-                <ImSearch />
-              </i>
-            </span>
-          </button>
+      <div className="container my-4">
+        <div className="text-center mb-4">
+          <h1 className="text-success">Our Exclusive Products</h1>
         </div>
-        <div className="container">
-          <div className="row row-cols-1 row-cols-md-3 g-4 justify-content-center m-1">
-            {filterdProducts?.length > 0 ? (
-              filterdProducts?.map((item) => (
-                <div className="col" key={item?._id}>
-                  <div className="card">
-                    <div className="d-flex justify-content-center">
-                      <img
-                        style={{
-                          maxWidth: "50%",
-                        }}
-                        src={`data:${
-                          item?.img?.contentType
-                        };base64,${item?.image?.data?.toString("base64")}`}
-                        className="card-img-top mt-1 "
-                        alt="..."
-                        onError={(e) => {
-                          e.target.src = "your_placeholder_image_url";
-                        }}
-                      />
-                    </div>
-                    <div className="card-body">
-                      <h3 className="card-title">{item?.brand}</h3>
-                      <h5 className="card-text">
-                        <strong style={{ color: "#3b8f3f" }}>
-                          ₹ {item?.price}
-                        </strong>{" "}
-                        /-
-                      </h5>
-                      <ul>
-                        <li className="card-text">Model {item?.model}</li>
-                        <li className="card-text">Ram {item?.ram} GB</li>
-                        <li className="card-text">
-                          Storage {item?.storage} GB
-                        </li>
-                        <li className="card-text">Screen {item?.screen}</li>
-                      </ul>
-                      <button
-                        className="btn btn-success"
-                        onClick={() => updateProduct(item?._id)}
-                      >
-                        Update
-                      </button>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => deleteProduct(item?._id)}
-                      >
-                        Delete
-                      </button>
-                    </div>
+        <div className="d-flex flex-column flex-md-row align-items-center mb-4">
+          <div className="input-group">
+            <span className="input-group-text">
+              <ImSearch />
+            </span>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search by Brand name or Model..."
+              value={filter}
+              onChange={handleFilterChange}
+            />
+          </div>
+          <div className="ms-md-3 mt-md-0 d-flex">
+            <label htmlFor="price" className="form-label mt-2">
+              <strong>Price:</strong>
+            </label>
+            <select
+              name="price"
+              id="price"
+              className="form-select"
+              onChange={(e) => setPriceFilter(e.target.value)}
+            >
+              <option value="">All Prices</option>
+              <option value="<10000">Under ₹10,000</option>
+              <option value="10000-25000">₹10,000 - ₹25,000</option>
+              <option value="25000-50000">₹25,000 - ₹50,000</option>
+              <option value="50000-75000">₹50,000 - ₹75,000</option>
+              <option value=">75000">Over ₹75,000</option>
+            </select>
+            <label htmlFor="sort" className="form-label mt-2">
+              <strong>Sort: </strong>
+            </label>
+            <select
+              name="sort"
+              id="sort"
+              className="form-select"
+              onChange={(e) => setPriceSortFilter(e.target.value)}
+            >
+              <option value="asscending">Low to High</option>
+              <option value="descending">High to Low</option>
+            </select>
+          </div>
+        </div>
+        <div className="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+          {filterdProduct?.length > 0 ? (
+            filterdProduct?.map((item) => (
+              <div className="col" key={item?._id}>
+                <div className="card h-100">
+                  <div
+                    className="d-flex justify-content-center align-items-center"
+                    style={{ minHeight: "200px" }}
+                  >
+                    <img
+                      src={`data:${
+                        item?.img?.contentType
+                      };base64,${item?.image?.data?.toString("base64")}`}
+                      className="card-img-top img-fluid"
+                      alt="..."
+                      onError={(e) => {
+                        e.target.src = "your_placeholder_image_url";
+                      }}
+                      style={{ maxHeight: "200px", width: "auto" }}
+                    />
+                  </div>
+                  <div className="card-body">
+                    <h3 className="card-title">{item?.brand}</h3>
+                    <h5 className="card-text">
+                      <strong style={{ color: "#3b8f3f" }}>
+                        ₹ {item?.price}
+                      </strong>{" "}
+                      /-
+                    </h5>
+                    <ul>
+                      <li className="card-text">Model {item?.model}</li>
+                      <li className="card-text">Ram {item?.ram} GB</li>
+                      <li className="card-text">Storage {item?.storage} GB</li>
+                      <li className="card-text">Screen {item?.screen}</li>
+                    </ul>
+
+                    <button
+                      className="btn btn-success me-4"
+                      onClick={() => updateProduct(item?._id)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => deleteProduct(item?._id)}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
-              ))
-            ) : (
-              <div className="text-center">
-                <p className="fs-4">
-                  <strong>No product found</strong>
-                </p>
               </div>
-            )}
-          </div>
+            ))
+          ) : (
+            <div className="text-center">
+              <p className="fs-4">
+                <strong>No product found</strong>
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </>

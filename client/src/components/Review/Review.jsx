@@ -57,19 +57,19 @@ const Review = ({ data: productId }) => {
 
   return (
     <>
-      <div className="d-flex">
+      <div className="d-flex mt-5">
         <div className="container">
           <div className="card">
-            <h2 className="card-title text-success p-2">Reviews with images</h2>
+            <h3 className="card-title p-2">Reviews with images</h3>
             <div className="d-flex">
               {reviews.length > 0 ? (
                 reviews.map((review) => (
-                  <div key={review._id} className="d-flex  m-2">
-                    {review.image && review.image.data && (
+                  <div key={review?._id} className="d-flex  m-2">
+                    {review?.image && review?.image?.data && (
                       <img
                         src={`data:${
-                          review.image.contentType
-                        };base64,${bufferToBase64(review.image.data.data)}`}
+                          review?.image?.contentType
+                        };base64,${bufferToBase64(review?.image?.data?.data)}`}
                         alt="Review"
                         style={{ maxWidth: "100px" }}
                       />
@@ -93,9 +93,9 @@ const Review = ({ data: productId }) => {
                 <h3>Ratings & Reviews</h3>
                 <NavLink
                   to={`/product/review/create-review/${productId}`}
-                  className="fs-3"
+                  className="fs-3 text-style-none"
                 >
-                  Rate Product
+                  🥺Rate Product
                 </NavLink>
               </div>
               <h5 className="card-title text-success fs-2">
@@ -113,21 +113,27 @@ const Review = ({ data: productId }) => {
                   {averageRating} Stars
                 </div>
               </div>
-              <div className="card p-4">
+              <div className="card">
                 {reviews.length > 0 ? (
                   reviews.map((review) => (
-                    <div key={review._id}>
+                    <div key={review?._id}>
                       <ul className="card-body list-unstyled">
-                        <li className="card-text fs-4">
-                          Name: {review.userName}
+                        <li className="card-text">
+                          <strong>Name: </strong>
+                          {review?.userName}
                         </li>
                         <li className="card-text">
-                          Rating: {displayStars(review.rating)}
+                          <strong>Rating: </strong>
+                          {displayStars(review?.rating)}
                         </li>
                         <li className="card-text">
-                          Headline: {review.headline}
+                          <strong>Headline: </strong>
+                          {review?.headline}
                         </li>
-                        <li className="card-text">Comment: {review.comment}</li>
+                        <li className="card-text">
+                          <strong>Comment: </strong>
+                          {review?.comment}
+                        </li>
                       </ul>
                     </div>
                   ))

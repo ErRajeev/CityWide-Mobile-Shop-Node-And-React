@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { CgDetailsMore } from "react-icons/cg";
 
 const ProductCard = (props) => {
   const { data } = props;
@@ -46,7 +47,7 @@ const ProductCard = (props) => {
                 className="btn btn-success"
                 onClick={() => pageHandle(item?._id)}
               >
-                Details
+                <CgDetailsMore /> Details
               </button>
             </div>
           </div>

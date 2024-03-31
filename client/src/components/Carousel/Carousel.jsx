@@ -1,16 +1,10 @@
 import React from "react";
 import laptop from "../../assets/Images/laptopCarousel.jpg";
-import watch from "../../assets/Images/watchs.jpg";
+import watch from "../../assets/Images/watchCarousel.jpg";
 import bluetooth from "../../assets/Images/bluetoothCarousel.jpg";
 import smartphone from "../../assets/Images/smartphoneCarousel.jpg";
 
 const carouselItems = [
-  {
-    image: bluetooth,
-    label: "High-Quality Bluetooth Devices",
-    caption:
-      "Immerse yourself in high-quality audio with our Bluetooth devices.",
-  },
   {
     image: smartphone,
     label: "Latest Smartphones at Your Fingertips",
@@ -21,6 +15,12 @@ const carouselItems = [
     image: laptop,
     label: "Powerful Laptops for Productivity",
     caption: "Boost your productivity with our powerful laptop collection.",
+  },
+  {
+    image: bluetooth,
+    label: "High-Quality Bluetooth Devices",
+    caption:
+      "Immerse yourself in high-quality audio with our Bluetooth devices.",
   },
   {
     image: watch,

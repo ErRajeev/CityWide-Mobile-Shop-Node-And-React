@@ -23,9 +23,9 @@ const ContactUs = () => {
     try {
       const response = await axiosInstance.get(`/getcontactus/${userId}`);
       // console.log(response.data);
-      setName(response.data.name);
-      setEmail(response.data.email);
-      setMobile(response.data.mobile);
+      setName(response?.data?.name);
+      setEmail(response?.data?.email);
+      setMobile(response?.data?.mobile);
     } catch (error) {
       setError(error.message || "An error occurred");
     } finally {
@@ -44,9 +44,9 @@ const ContactUs = () => {
         text,
       });
       if (response.status === 200) {
-        setSuccess(response.data.success);
+        setSuccess(response?.data?.success);
       } else {
-        setError(response.data.error || "An error occurred");
+        setError(response?.data?.error || "An error occurred");
       }
     } catch (error) {
       setError(error.message || "An error occurred");

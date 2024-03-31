@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import ProfileUpdate from "../profileUpdate/ProfileUpdate";
 import { authContext } from "../context/AuthenticationProvider";
 import axiosInstance from "../../../Utils/axiosInstance";
@@ -9,6 +10,7 @@ const Profile = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
 
   const authState = useContext(authContext);
 
@@ -101,8 +103,6 @@ const Profile = () => {
                   <p className="card-text fs-5">
                     <strong>Age:</strong> {userData?.age}
                   </p>
-                </div>
-                <div className="col-md-6">
                   <p className="card-text fs-5">
                     <strong>Gender:</strong> {userData?.gender}
                   </p>
@@ -123,10 +123,20 @@ const Profile = () => {
                   onCancel={handleCancelEdit}
                 />
               ) : (
-                <div className="text-center mt-3">
-                  <button className="btn btn-primary" onClick={handleEdit}>
-                    Update Details
-                  </button>
+                <div className="d-flex justify-content-around">
+                  <div className="text-center mt-3">
+                    <button className="btn btn-primary" onClick={handleEdit}>
+                      Update Profile
+                    </button>
+                  </div>
+                  <div className="text-center mt-3">
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => navigate("/profile/UpdateAddress")}
+                    >
+                      Update Address
+                    </button>
+                  </div>
                 </div>
               )}
             </div>

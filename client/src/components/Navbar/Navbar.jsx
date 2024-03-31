@@ -4,6 +4,7 @@ import { authContext } from "../Authentication/context/AuthenticationProvider";
 import { FaUser, FaShoppingCart } from "react-icons/fa";
 import { CgLogOut } from "react-icons/cg";
 import { MdLogin, MdCheckBox } from "react-icons/md";
+import { PiPhoneCallDuotone } from "react-icons/pi";
 import axiosInstance from "../../Utils/axiosInstance";
 
 const Navbar = () => {
@@ -62,7 +63,7 @@ const Navbar = () => {
               </li>
               <li className="nav-item">
                 <NavLink to="/contact" className="nav-link">
-                  Contact Us
+                  <PiPhoneCallDuotone className="mb-1" /> Contact
                 </NavLink>
               </li>
             </ul>

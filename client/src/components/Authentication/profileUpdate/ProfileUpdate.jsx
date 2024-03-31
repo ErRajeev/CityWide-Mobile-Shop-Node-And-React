@@ -65,7 +65,7 @@ const ProfileUpdate = ({ userData, onUpdate, onCancel }) => {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="mb-3">
+            {/* <div className="mb-3">
               <label htmlFor="pincode" className="form-label">
                 Pincode
               </label>
@@ -77,7 +77,7 @@ const ProfileUpdate = ({ userData, onUpdate, onCancel }) => {
                 value={updatedData?.pincode}
                 onChange={handleInputChange}
               />
-            </div>
+            </div> */}
           </div>
           <div className="col-md-6">
             <div className="mb-3">
@@ -125,7 +125,7 @@ const ProfileUpdate = ({ userData, onUpdate, onCancel }) => {
               />
             </div>
 
-            <div className="mb-3">
+            {/* <div className="mb-3">
               <label htmlFor="address" className="form-label">
                 Address
               </label>
@@ -136,7 +136,7 @@ const ProfileUpdate = ({ userData, onUpdate, onCancel }) => {
                 value={updatedData?.address}
                 onChange={handleInputChange}
               />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="text-center mt-3">

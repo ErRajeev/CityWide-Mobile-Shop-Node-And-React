@@ -3,7 +3,6 @@ import Carousel from "../Carousel/Carousel";
 import Icons from "../Icons/Icons";
 import Category from "../Category/Category";
 import HomeBody from "../Features/Features";
-import Footer from "../Footer/Footer";
 
 const Home = () => {
   return (
@@ -12,7 +11,6 @@ const Home = () => {
       <Icons />
       <Category />
       <HomeBody />
-      <Footer />
     </>
   );
 };

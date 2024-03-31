@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { authContext } from "../Authentication/context/AuthenticationProvider";
 import Address from "../Address/Address";
 import axiosInstance from "../../Utils/axiosInstance";
+import Footer from "../Footer/Footer";
 
 const Billing = () => {
   const [user, setUser] = useState({});
@@ -23,9 +24,7 @@ const Billing = () => {
   const fetchCartDetails = async () => {
     try {
       const response = await axiosInstance.get(`/getCardDetails/${userId}`);
-      // console.log(response.data);
       setProductDetails(response.data);
-      // setAllProductCost(response.data.allProductCost);
     } catch (error) {
       console.error("Error fetching cart details:", error);
     }
@@ -46,13 +45,13 @@ const Billing = () => {
 
       const options = {
         key: key,
-        amount: order.amount,
+        amount: order?.amount,
         currency: "INR",
         name: "Payment Gateway",
         description: "Test Transaction",
         image: "https://avatars.githubusercontent.com/u/86796998?v=4",
-        order_id: order.id,
-        callback_url: "http://localhost:5000/paymentVarification",
+        order_id: order?.id,
+        callback_url: "http://13.201.104.17:5000/paymentVarification",
         prefill: {
           name: `${user?.name}`,
           email: `${user?.email}`,
@@ -78,24 +77,24 @@ const Billing = () => {
   }, []);
 
   return (
-    <div>
-      <div className="container mt-5 p-2 rounded">
+    <>
+      <div className="container p-2 rounded">
         <h3 className="mb-4 p-3 rounded" style={{ backgroundColor: "#2874f0" }}>
           Order Summary
         </h3>
-        <div className="row d-flex">
+        <div className="row">
           <hr />
-          <Address />
-          <div className="col-md-4 mt-5">
-            <div className="mt-2">
+          <div className="d-flex">
+            <Address />
+            <div className="col-md-4">
               <div className="card">
+                <h5 className="card-header">Price details</h5>
                 <div className="card-body">
-                  <h2 className="card-title">Price details</h2>
-                  <hr />
                   <p className="card-text">Delivery Charges ₹ 49</p>
+                  <p className="card-text">Packaging Charge: ₹ 99</p>
                   <p className="card-text">
-                    Discount{" "}
-                    <span className="text-decoration-line-through">49</span>{" "}
+                    Discount:{" "}
+                    <span className="text-decoration-line-through">148</span>{" "}
                     <span style={{ color: "#3b8f3f" }}>Free</span>
                   </p>
                   <h5 className="card-text">
@@ -113,7 +112,8 @@ const Billing = () => {
           </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

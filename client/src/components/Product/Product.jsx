@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { authContext } from "../Authentication/context/AuthenticationProvider";
 import ProductBrand from "../ProductBrand/ProductBrand";
+import { PiShoppingCartBold } from "react-icons/pi";
 import axiosInstance from "../../Utils/axiosInstance";
 import Review from "../Review/Review";
 
@@ -64,7 +65,7 @@ const Product = () => {
 
   return (
     <>
-      <div className="container-fluid mt-3">
+      <div className="container-fluid mt-2 mb-5">
         {success && (
           <div className="alert alert-success text-center" role="alert">
             {success}
@@ -118,7 +119,7 @@ const Product = () => {
                 </p>
 
                 <button className="btn btn-success" onClick={addToCart}>
-                  Add To Cart
+                  <PiShoppingCartBold className="mb-1" /> Add To Cart
                 </button>
               </div>
             </div>

@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import ProductCard from "../ProductCard/ProductCard";
 import { fetchProducts } from "../Slices/productsSlice";
 import { ImSearch } from "react-icons/im";
-import Footer from "../Footer/Footer";
 
 const AllProducts = () => {
   const [filter, setFilter] = useState("");
@@ -27,7 +26,7 @@ const AllProducts = () => {
     if (priceFilter.startsWith("<")) {
       return matchFilter && product.price < 10000;
     } else if (priceFilter.startsWith(">")) {
-      return matchFilter && product.price > 50000;
+      return matchFilter && product.price > 75000;
     } else if (minPrice && maxPrice) {
       return (
         matchFilter && product.price >= minPrice && product.price <= maxPrice
@@ -129,7 +128,6 @@ const AllProducts = () => {
           )}
         </div>
       </div>
-      <Footer />
     </>
   );
 };

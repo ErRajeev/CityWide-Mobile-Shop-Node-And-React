@@ -53,7 +53,7 @@ const CreateReview = () => {
         `product/review/${p_id}`,
         formPayload
       );
-      setMessage(response.data.message);
+      setMessage(response?.data?.message);
       setTimeout(() => {
         setMessage("");
         navigate(`/Product/${id}`);
@@ -171,8 +171,15 @@ const CreateReview = () => {
                 />
               </div>
 
-              <button type="submit" className="btn btn-success mb-2">
+              <button type="submit" className="btn btn-success m-2 me-5">
                 Submit Review
+              </button>
+              <button
+                type="cancel"
+                className="btn btn-danger m-2"
+                onClick={() => navigate(`/Product/${p_id}`)}
+              >
+                Cancel
               </button>
               {message && (
                 <div className="alert alert-success text-center" role="alert">

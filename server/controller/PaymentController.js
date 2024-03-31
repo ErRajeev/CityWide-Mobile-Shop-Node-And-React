@@ -1,6 +1,7 @@
 import { instance } from "../index.js";
 import crypto from "crypto";
 import Purchase from "../model/userPurchaseModel.js";
+import User from "../model/userModel.js";
 import Cart from "../model/userCartModel.js";
 import { config } from "dotenv";
 config();
@@ -57,6 +58,9 @@ export const paymentVarification = async (req, res) => {
     if (generated_signature === razorpay_signature) {
       // DataBase
       // console.log(product_Details.allProductCost);
+
+      const shippingAddress = await User.findOne({ _id: user_Id }, "address");
+
       const purchaseData = {
         userId: user_Id,
         orders: {
@@ -64,6 +68,17 @@ export const paymentVarification = async (req, res) => {
           orderId: razorpay_order_id,
           allProductCost: product_Details.allProductCost,
           cartProducts: product_Details.cartProducts,
+        },
+        address: {
+          name: shippingAddress.address.name,
+          email: shippingAddress.address.email,
+          mobile: shippingAddress.address.mobile,
+          city: shippingAddress.address.city,
+          district: shippingAddress.address.district,
+          pincode: shippingAddress.address.pincode,
+          state: shippingAddress.address.state,
+          street: shippingAddress.address.street,
+          type: shippingAddress.address.type,
         },
       };
 

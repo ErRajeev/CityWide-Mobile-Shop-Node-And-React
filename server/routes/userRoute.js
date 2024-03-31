@@ -5,6 +5,7 @@ import { Signup, otpVerification } from "../controller/UserSignupController.js";
 import {
   getUserById,
   updateUser,
+  updateUserAddress,
 } from "../controller/UserProfileController.js";
 import { getContactUs, contactUs } from "../controller/UserContactUs.js";
 import {
@@ -20,6 +21,7 @@ router.route("/reg").post(Signup);
 router.route("/otp-verify").post(otpVerification);
 router.route("/profile/:id").get(getUserById);
 router.route("/profile/:id").patch(updateUser);
+router.route("/profile/address/:id").patch(updateUserAddress);
 router.route("/getcontactus/:userId").get(getContactUs);
 router.route("/contactus").post(contactUs);
 router.route("/addtocart").patch(addToCart);

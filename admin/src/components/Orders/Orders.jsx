@@ -72,10 +72,7 @@ const Orders = () => {
 
   return (
     <>
-      <div className="container mt-5">
-        <h2 className="mb-4 text-center text-primary">
-          Customer Orders Overview
-        </h2>
+      <div className="container py-5">
         <div className="input-group mb-4">
           <input
             type="text"
@@ -94,9 +91,12 @@ const Orders = () => {
         </div>
         {filteredOrders?.length > 0 ? (
           filteredOrders?.map((order) => (
-            <div className="card mb-4 shadow-sm" key={order._id}>
-              <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                <h5 className="mb-0">{order.userInfo?.name}</h5>
+            <div
+              className="card mb-4 shadow-sm text-white bg-primary"
+              key={order?._id}
+            >
+              <div className="card-header d-flex justify-content-between align-items-center">
+                <h5 className="mb-0">{order?.userInfo?.name}</h5>
                 <h5 className="mb-0">
                   {new Date(order?.orders[0]?.createdAt).toLocaleDateString()}
                 </h5>
@@ -104,26 +104,26 @@ const Orders = () => {
                   className="btn btn-light btn-sm"
                   type="button"
                   data-bs-toggle="collapse"
-                  data-bs-target={`#orderDetails${order._id}`}
+                  data-bs-target={`#orderDetails${order?._id}`}
                   aria-expanded="false"
-                  aria-controls={`orderDetails${order._id}`}
+                  aria-controls={`orderDetails${order?._id}`}
                 >
                   View Details
                 </button>
               </div>
-              <div className="collapse" id={`orderDetails${order._id}`}>
+              <div className="collapse" id={`orderDetails${order?._id}`}>
                 <div className="card-body">
                   <div className="row g-3">
                     <div className="col-md-6">
                       <p className="mb-2">
-                        <strong>Email:</strong> {order.userInfo?.email}
+                        <strong>Email:</strong> {order?.userInfo?.email}
                       </p>
                       <p className="mb-2">
-                        <strong>Mobile:</strong> {order.userInfo?.mobile}
+                        <strong>Mobile:</strong> {order?.userInfo?.mobile}
                       </p>
                       <p className="mb-2">
                         <strong>Address:</strong>{" "}
-                        {`${order.userInfo?.address}, ${order.userInfo?.pincode}`}
+                        {` ${order?.userInfo?.address?.street} ${order?.userInfo?.address.city}, ${order?.userInfo?.address?.district}, ${order?.userInfo?.address?.state}`}
                       </p>
                     </div>
                     <div className="col-md-6">

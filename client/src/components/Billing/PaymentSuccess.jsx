@@ -39,7 +39,7 @@ const PaymentSuccess = () => {
                 Your Payment ID is: {reference_no}
               </p>
               <p className="text-center">
-                Now you will be redirected to the Home page in {counter}{" "}
+                Now you will be redirected to the Orders page in {counter}{" "}
                 seconds.
               </p>
             </div>

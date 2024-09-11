@@ -58,8 +58,8 @@ const Sidebar = () => {
             </NavLink>
           </li>
           <li className="nav-item mb-2">
-            <NavLink to="/admin/report" className="nav-link">
-              <TbReportSearch className="mb-1" /> Report
+            <NavLink to="/admin/contacts" className="nav-link">
+              <TbReportSearch className="mb-1" /> Contacts
             </NavLink>
           </li>
         </ul>

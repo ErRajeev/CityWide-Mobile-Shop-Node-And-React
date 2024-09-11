@@ -22,7 +22,6 @@ const ContactUs = () => {
   const getUserdata = async () => {
     try {
       const response = await axiosInstance.get(`/getcontactus/${userId}`);
-      // console.log(response.data);
       setName(response?.data?.name);
       setEmail(response?.data?.email);
       setMobile(response?.data?.mobile);

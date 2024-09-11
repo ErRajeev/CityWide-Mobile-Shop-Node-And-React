@@ -1,6 +1,7 @@
 import Products from "../model/productModel.js";
 import User from "../model/userModel.js";
 import Purchase from "../model/userPurchaseModel.js";
+import Contact from "../model/userContactUsModel.js";
 
 export const isAdmin = async (req, res, next) => {
   const { email, password } = req.body;
@@ -172,6 +173,17 @@ export const getCustomerOrders = async (req, res) => {
     const orders = await Purchase.find();
     res.status(200).json(orders);
   } catch (error) {
-    console.log(error);
+    console.log(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const getContacts = async (req, res) => {
+  try {
+    const contact = await Contact.find();
+    res.status(200).json(contact);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };

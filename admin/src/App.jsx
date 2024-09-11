@@ -13,6 +13,8 @@ import AllProducts from "./components/AllProducts/AllProducts";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Orders from "./components/Orders/Orders";
 import UpdateProduct from "./components/UpdateProduct/UpdateProduct";
+import Price from "./components/Price/Price";
+import Contacts from "./components/Contacts/Contacts";
 
 const App = () => {
   return (
@@ -29,6 +31,8 @@ const App = () => {
                 <Route path="/admin/UpdateUser/:id" element={<UpdateUser />} />
                 <Route path="/admin/allproducts" element={<AllProducts />} />
                 <Route path="/admin/orders" element={<Orders />} />
+                <Route path="/admin/price" element={<Price />} />
+                <Route path="/admin/contacts" element={<Contacts />} />
                 <Route
                   path="/admin/updateProduct/:id"
                   element={<UpdateProduct />}

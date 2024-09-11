@@ -51,7 +51,7 @@ const Billing = () => {
         description: "Test Transaction",
         image: "https://avatars.githubusercontent.com/u/86796998?v=4",
         order_id: order?.id,
-        callback_url: "http://13.201.104.17:5000/paymentVarification",
+        callback_url: "http://localhost:5000/paymentVarification",
         prefill: {
           name: `${user?.name}`,
           email: `${user?.email}`,

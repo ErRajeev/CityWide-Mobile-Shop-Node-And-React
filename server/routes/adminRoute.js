@@ -10,6 +10,7 @@ import {
   AllUsers,
   deleteUser,
   getCustomerOrders,
+  getContacts,
 } from "../controller/AdminController.js";
 
 const storage = memoryStorage();
@@ -24,6 +25,7 @@ router
   .patch(upload.single("image"), UpdateProduct);
 router.route("/admin/deleteProduct/:id").delete(deleteProduct);
 router.route("/admin/allusers").get(isAdmin, AllUsers);
+router.route("/admin/contacts").get(getContacts);
 router.route("/admin/deleteUser/:userId").delete(deleteUser);
 router.route("/admin/getCustomerOrders").get(isAdmin, getCustomerOrders);
 

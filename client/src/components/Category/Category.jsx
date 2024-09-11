@@ -56,10 +56,7 @@ const Category = () => {
               key={item?.id}
               style={{ cursor: "pointer" }}
             >
-              <NavLink
-                to={`/category/${item?.id}`}
-                className="text-decoration-none"
-              >
+              <NavLink to={`/allproducts`} className="text-decoration-none">
                 <div className="card bg-dark text-dark">
                   <img
                     src={item?.image}
